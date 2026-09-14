@@ -3568,18 +3568,29 @@ html {
 }
 
 .decrypt-reveal--active .decrypt-reveal__output {
-  opacity: 1;
-  pointer-events: auto;
+  opacity: 0;
 }
 
 .decrypt-reveal--active .decrypt-reveal__content {
-  opacity: 0;
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .decrypt-reveal--active:hover .decrypt-reveal__output {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .decrypt-reveal--active:hover .decrypt-reveal__content {
+    opacity: 0;
+  }
 }
 
 .experience__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
@@ -3601,21 +3612,32 @@ html {
 }
 
 .hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
   overflow: visible;
   min-height: 100svh;
   padding-top: calc(var(--header-height) + clamp(2rem, 6vh, 4.5rem));
   padding-bottom: clamp(2.5rem, 8vh, 5rem);
 }
 
-.hero__inner {
-  grid-template-columns: minmax(0, 1.15fr) minmax(200px, 0.85fr);
-  align-items: center;
+.hero .container,
+.hero__inner,
+.hero__content {
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
 }
 
-.hero__content {
-  max-width: 100%;
-  min-width: 0;
+.hero .container {
+  align-self: stretch;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(200px, 0.85fr);
+  align-items: center;
 }
 
 .hero__name,
@@ -3625,21 +3647,26 @@ html {
 }
 
 .hero__name {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.12em;
-  min-height: 1.4em;
+  display: block;
+  min-height: 1.45em;
   max-width: 100%;
   font-size: clamp(1.35rem, 2.4vw + 0.85rem, 2.55rem);
-  line-height: 1.35;
+  line-height: 1.4;
   overflow: visible;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  overflow-wrap: break-word;
+  word-break: normal;
   background: none;
   -webkit-text-fill-color: unset;
   color: var(--color-text);
   text-shadow: none;
+}
+
+.hero__title,
+.hero__tagline {
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+  max-width: 40rem;
 }
 
 .hero__name .typed-name,
@@ -3647,10 +3674,6 @@ html {
   color: inherit;
   -webkit-text-fill-color: inherit;
   background: none;
-}
-
-.hero__name .cursor {
-  flex-shrink: 0;
 }
 
 .avatar {
@@ -3699,8 +3722,12 @@ html {
   }
 
   .hero__name {
-    justify-content: center;
     font-size: clamp(1.35rem, 7vw, 2.2rem);
+  }
+
+  .hero__title,
+  .hero__tagline {
+    margin-inline: auto;
   }
 
   .hero__actions {
