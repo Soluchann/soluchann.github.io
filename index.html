@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adarsh Chatlapally | GPU Kernels • AI</title>
-  <link rel="stylesheet" href="style.css?v=32">
+  <link rel="stylesheet" href="style.css?v=35">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -51,7 +51,7 @@
           </button>
           <button class="btn btn--primary btn--sm" id="downloadResume">
             <i class="fas fa-download"></i>
-            <span class="hidden sm:inline">Download CV</span>
+            <span class="btn__label">Download CV</span>
           </button>
           <button class="menu-toggle" aria-label="Toggle menu">
             <span></span>
@@ -69,7 +69,7 @@
       <div class="container">
         <div class="hero__inner">
           <div class="hero__content">
-            <h1 class="hero__name"><span class="typed-name"></span><span class="cursor">|</span></h1>
+            <h1 class="hero__name"><span class="typed-name">Hey!</span><span class="cursor" aria-hidden="true">|</span></h1>
             <h2 class="hero__title">GPU Kernels • AI/ML • Systems</h2>
             <p class="hero__tagline">I build performant ML kernels and tooling across GPUs and accelerators — from quantized convs on embedded DSPs to fused CUDA operators for modern GenAI pipelines.</p>
             <div class="hero__actions">
@@ -129,22 +129,23 @@
       let index = 0;
 
       function typeNext() {
+        const phrase = phrases[index];
         gsap.to(el, {
-          duration: 1, // typing speed (faster)
-          text: phrases[index],
+          duration: Math.max(0.55, phrase.length * 0.07),
+          text: { value: phrase, delimiter: "" },
           ease: "none",
           onComplete: () => {
             setTimeout(() => {
               gsap.to(el, {
-                duration: 0.6, // deleting speed (faster)
-                text: "",
+                duration: 0.28,
+                text: { value: "\u00a0", delimiter: "" },
                 ease: "none",
                 onComplete: () => {
                   index = (index + 1) % phrases.length;
                   typeNext();
                 }
               });
-            }, 1000); // wait time after typing before deleting
+            }, 1400);
           }
         });
       }
