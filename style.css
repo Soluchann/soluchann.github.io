@@ -3526,64 +3526,19 @@ html {
   display: inline;
 }
 
-/* Keep experience/projects in the editorial content column, not the 160px rail */
-.section--editorial .container > .decrypt-reveal,
-.section--editorial .container > .experience__decrypt,
-.section--editorial .container > .about__content,
-.section--editorial .container > .projects__grid {
+/* Any editorial body (about, experience, projects) belongs in the content column */
+.section--editorial .container > *:not(.section__header--editorial) {
   grid-column: 2;
   min-width: 0;
   width: 100%;
 }
 
-.decrypt-reveal {
-  position: relative;
-  isolation: isolate;
-}
-
-.decrypt-reveal__content {
-  position: relative;
-  z-index: 1;
-}
-
-.decrypt-reveal__source,
-.decrypt-reveal__output {
-  position: absolute;
-  inset: 0;
+.experience__list,
+.about__content--editorial,
+.projects__grid {
+  grid-column: 2;
+  min-width: 0;
   width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-  border: 0;
-}
-
-.decrypt-reveal__source {
-  opacity: 0;
-  z-index: 0;
-}
-
-.decrypt-reveal__output {
-  z-index: 2;
-  opacity: 0;
-}
-
-.decrypt-reveal--active .decrypt-reveal__output {
-  opacity: 0;
-}
-
-.decrypt-reveal--active .decrypt-reveal__content {
-  opacity: 1;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .decrypt-reveal--active:hover .decrypt-reveal__output {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .decrypt-reveal--active:hover .decrypt-reveal__content {
-    opacity: 0;
-  }
 }
 
 .experience__bar {
@@ -3736,10 +3691,10 @@ html {
 }
 
 @media (max-width: 768px) {
-  .section--editorial .container > .decrypt-reveal,
-  .section--editorial .container > .experience__decrypt,
-  .section--editorial .container > .about__content,
-  .section--editorial .container > .projects__grid {
+  .section--editorial .container > *:not(.section__header--editorial),
+  .experience__list,
+  .about__content--editorial,
+  .projects__grid {
     grid-column: 1;
   }
 
@@ -3801,4 +3756,20 @@ html {
   .footer__link {
     white-space: normal;
   }
+}
+
+/* Content must stay visible even if scroll animations never fire */
+.fade-in,
+.slide-in-left,
+.slide-in-right {
+  opacity: 1;
+  transform: none;
+}
+
+.header {
+  background: rgb(255 255 255 / 0.96);
+}
+
+[data-color-scheme="dark"] .header {
+  background: rgb(0 0 0 / 0.94);
 }
